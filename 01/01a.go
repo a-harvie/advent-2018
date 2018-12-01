@@ -1,10 +1,11 @@
-package one
+package main
 
 import "fmt"
 
 var tests = [][]int{
 	[]int{+1, -1},
 	[]int{+3, +3, +4, -2, -4},
+	[]int{-6, +3, +8, +5, -6},
 	[]int{+7, +7, -2, -7, -4},
 }
 var testResults = []int{
@@ -39,28 +40,27 @@ func getFreq(start int, deltas []int) int {
 
 func getRepeatFreq(start int, deltas []int) int {
 	fmt.Println("getrepest")
-	seen := make([]int, 0)
-	fmt.Printf("getrepeat %v %v %v", start, deltas, seen)
-	for i := 0; i < len(deltas); i++ {
+	var seen = make(map[int]bool)
+	seen[start] = true
+	fmt.Printf("getrepeat %v %v %v\n", start, deltas, seen)
+
+	i := 0
+	var a int
+	for {
 		start += deltas[i]
-		fmt.Printf("Checking %v %v", start, seen)
-		found := sliceContains(seen, start)
+		_, found := seen[start]
 		if found {
-			return start
+			a = start
+			break
 		} else {
-			seen = append(seen, start)
+			seen[start] = true
+		}
+
+		i += 1
+		if i == len(deltas) {
+			i = 0
 		}
 	}
 
-	return 0
-}
-
-func sliceContains(seen []int, search int) bool {
-	for i := 0; i < len(seen); i++ {
-		if seen[i] == search {
-			return true
-		}
-	}
-
-	return false
+	return a
 }
