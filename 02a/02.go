@@ -26,47 +26,6 @@ func main() {
 	fmt.Printf("Answer: %v\n", a)
 }
 
-func getSum(strings []string) int {
-
-	var twos int
-	var threes int
-	for _, s := range strings {
-		counts := charCount(s)
-
-		hasTwo := false
-		hasThree := false
-		for _, c := range counts {
-			if c == 2 && !hasTwo {
-				hasTwo = true
-				twos += 1
-			}
-			if c == 3 && !hasThree {
-				hasThree = true
-				threes += 1
-			}
-			if hasTwo && hasThree {
-				break
-			}
-		}
-	}
-
-	return twos * threes
-}
-
-func charCount(s string) map[byte]int {
-	counts := make(map[byte]int)
-	for i := 0; i < len(s); i++ {
-		count, found := counts[s[i]]
-		if found {
-			counts[s[i]] = count + 1
-		} else {
-			counts[s[i]] = 1
-		}
-	}
-
-	return counts
-}
-
 func getMatches(strings []string) (string, string) {
 	for i := 0; i < len(strings); i++ {
 		s := strings[i]
