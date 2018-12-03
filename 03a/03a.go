@@ -38,10 +38,12 @@ func main() {
 	}
 	for i := 0; i < len(tests); i++ {
 		fmt.Println(tests[i])
-		fmt.Println(parseInput(tests[i]))
-		testGrid = updateGrid(testGrid, parseInput(tests[i]))
+		claim := parseInput(tests[i])
+		fmt.Println(claim)
+		testGrid = updateGrid(testGrid, claim)
 		printGrid(testGrid)
-		fmt.Printf("Test %v passed: %v\n", gridCount(testGrid), gridCount(testGrid) == testResults)
+		count := gridCount(testGrid)
+		fmt.Printf("Test count: %v passed: %v\n", count, count == testResults)
 	}
 
 	for i := 0; i < len(tests); i++ {
@@ -58,11 +60,13 @@ func main() {
 		grid = updateGrid(grid, claim)
 	}
 
+	fmt.Printf("Answer: %v\n", gridCount(grid))
+
 	for _, s := range input {
 		claim := parseInput(s)
 		test := testClaim(grid, claim)
 		if test {
-			fmt.Printf("Claim %v passes", claim.ID)
+			fmt.Printf("Claim %v passes\n", claim.ID)
 		}
 	}
 
