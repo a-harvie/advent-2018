@@ -12,32 +12,73 @@ var input = getInput("input.txt")
 var testResults = 10
 
 func main() {
-	in := bytes.Runes([]byte("aabAAB"))
+	in := test
+	units := make([]rune, 4)
+	for i := 0; i < 4; i++ {
+		units[i] = rune('a' + i)
+	}
+	fmt.Println(string(units))
 
-	for {
-		reaction, reacted := react(in)
+	shortest := len(in)
+	for _, u := range units {
+		candidate := removeUnits(u, in)
+		fmt.Println(string(in), string(candidate))
+		for {
+			reaction, reacted := react(candidate)
 
-		if reacted {
-			in = reaction
-		} else {
-			fmt.Println(string(reaction))
-			fmt.Println(len(reaction))
-			break
+			if reacted {
+				candidate = reaction
+			} else {
+				fmt.Println(string(reaction))
+				fmt.Println(len(reaction))
+				break
+			}
+		}
+		if len(candidate) < shortest {
+			shortest = len(candidate)
+		}
+	}
+	fmt.Println(shortest)
+
+	units = make([]rune, 26)
+	for i := 0; i < 26; i++ {
+		units[i] = rune('a' + i)
+	}
+	in = input
+	shortest = len(in)
+	for _, u := range units {
+		candidate := removeUnits(u, in)
+
+		for {
+			reaction, reacted := react(candidate)
+
+			if reacted {
+				candidate = reaction
+			} else {
+				break
+			}
+		}
+		if len(candidate) < shortest {
+			shortest = len(candidate)
+		}
+	}
+	fmt.Println(shortest)
+
+}
+
+func removeUnits(u rune, r []rune) []rune {
+	if unicode.IsUpper(u) {
+		u = unicode.ToLower(u)
+	}
+
+	out := make([]rune, 0)
+	for i := 0; i < len(r); i++ {
+		if unicode.ToLower(r[i]) != u {
+			out = append(out, r[i])
 		}
 	}
 
-	for {
-		reaction, reacted := react(input)
-
-		if reacted {
-			input = reaction
-		} else {
-			fmt.Println(string(reaction))
-			fmt.Println(len(reaction))
-			break
-		}
-	}
-
+	return out
 }
 
 func react(r []rune) ([]rune, bool) {
