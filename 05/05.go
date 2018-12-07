@@ -12,58 +12,47 @@ var input = getInput("input.txt")
 var testResults = 10
 
 func main() {
-	in := test
-	units := make([]rune, 4)
-	for i := 0; i < 4; i++ {
+
+	shortest := getShortest(4, test)
+	fmt.Println(shortest)
+
+	shortest = getShortest(26, input)
+	fmt.Println(shortest)
+
+}
+
+func getShortest(maxUnits int, r []rune) int {
+	units := make([]rune, maxUnits)
+	for i := 0; i < maxUnits; i++ {
 		units[i] = rune('a' + i)
 	}
-	fmt.Println(string(units))
 
-	shortest := len(in)
+	shortest := len(r)
 	for _, u := range units {
-		candidate := removeUnits(u, in)
-		fmt.Println(string(in), string(candidate))
-		for {
-			reaction, reacted := react(candidate)
-
-			if reacted {
-				candidate = reaction
-			} else {
-				fmt.Println(string(reaction))
-				fmt.Println(len(reaction))
-				break
-			}
-		}
+		candidate := removeUnits(u, r)
+		candidate = getFullyReacted(candidate)
 		if len(candidate) < shortest {
 			shortest = len(candidate)
 		}
 	}
-	fmt.Println(shortest)
 
-	units = make([]rune, 26)
-	for i := 0; i < 26; i++ {
-		units[i] = rune('a' + i)
-	}
-	in = input
-	shortest = len(in)
-	for _, u := range units {
-		candidate := removeUnits(u, in)
+	return shortest
+}
 
-		for {
-			reaction, reacted := react(candidate)
+func getFullyReacted(r []rune) []rune {
+	for {
+		reaction, reacted := react(r)
 
-			if reacted {
-				candidate = reaction
-			} else {
-				break
-			}
-		}
-		if len(candidate) < shortest {
-			shortest = len(candidate)
+		if reacted {
+			r = reaction
+		} else {
+			// fmt.Println(string(reaction))
+			// fmt.Println(len(reaction))
+			break
 		}
 	}
-	fmt.Println(shortest)
 
+	return r
 }
 
 func removeUnits(u rune, r []rune) []rune {
