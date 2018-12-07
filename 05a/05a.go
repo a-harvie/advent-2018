@@ -12,10 +12,31 @@ var input = getInput("input.txt")
 var testResults = 10
 
 func main() {
-	reacted := getFullyReacted(test)
-	fmt.Println(len(reacted))
-	reacted = getFullyReacted(input)
-	fmt.Println(len(reacted))
+
+	shortest := getShortest(4, test)
+	fmt.Println(shortest)
+
+	shortest = getShortest(26, input)
+	fmt.Println(shortest)
+
+}
+
+func getShortest(maxUnits int, r []rune) int {
+	units := make([]rune, maxUnits)
+	for i := 0; i < maxUnits; i++ {
+		units[i] = rune('a' + i)
+	}
+
+	shortest := len(r)
+	for _, u := range units {
+		candidate := removeUnits(u, r)
+		candidate = getFullyReacted(candidate)
+		if len(candidate) < shortest {
+			shortest = len(candidate)
+		}
+	}
+
+	return shortest
 }
 
 func getFullyReacted(r []rune) []rune {
@@ -32,6 +53,21 @@ func getFullyReacted(r []rune) []rune {
 	}
 
 	return r
+}
+
+func removeUnits(u rune, r []rune) []rune {
+	if unicode.IsUpper(u) {
+		u = unicode.ToLower(u)
+	}
+
+	out := make([]rune, 0)
+	for i := 0; i < len(r); i++ {
+		if unicode.ToLower(r[i]) != u {
+			out = append(out, r[i])
+		}
+	}
+
+	return out
 }
 
 func react(r []rune) ([]rune, bool) {
