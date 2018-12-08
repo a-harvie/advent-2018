@@ -10,8 +10,8 @@ import (
 	"time"
 )
 
-var tests = getInput("test.txt")
-var input = getInput("input.txt")
+var tests = getInput("../input/04_test.txt")
+var input = getInput("../input/04.txt")
 var testResults = 240
 
 // map minutes to time spent asleep during that minute

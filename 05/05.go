@@ -7,8 +7,8 @@ import (
 	"unicode"
 )
 
-var test = getInput("test.txt")
-var input = getInput("input.txt")
+var test = getInput("../input/05_test.txt")
+var input = getInput("../input/05.txt")
 var testResults = 10
 
 func main() {
