@@ -24,9 +24,12 @@ try:
 
 		print("Wrote {0}".format(filePath))
 		print("Now you'll want to:")
-		print("\tgit add {0}".format(currday))
-		print('\tgit commit -m "{0} day {1}"'.format(args.action, currday))
-		print('\tgit push')
+		gitmessage = "\tgit add {0}".format(currday)
+		gitmessage += " && "
+		gitmessage += 'git commit -m "{0} day {1}"'.format(args.action, currday)
+		gitmessage += " && "
+		gitmessage += 'git push'
+		print(gitmessage)
 
 except (FileExistsError) as e:
 	print("Whoops, that file exists! No cheating!")
