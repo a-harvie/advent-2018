@@ -38,7 +38,7 @@ func react(r []rune) ([]rune, bool) {
 	for i := 1; i < len(r); i++ {
 		if reacts := unitsReact(r[i-1], r[i]); reacts {
 			s := i + 1
-			if s == len(r) {
+			if s > len(r) {
 				s = len(r)
 			}
 			return append(r[0:i-1], r[s:len(r)]...), true
