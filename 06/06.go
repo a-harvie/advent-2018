@@ -21,18 +21,6 @@ func main() {
 	printEmptyGrid(test)
 	grid := makeGrid(test)
 	printGrid(grid, test)
-	seen := make(map[int]struct{})
-	for y := range grid {
-		for x := range grid[y] {
-			val := grid[y][x]
-			_, seenVal := seen[val]
-			if seenVal {
-				continue
-			}
-			seen[val] = struct{}{}
-			fmt.Println("area", val, getArea(val, grid))
-		}
-	}
 	fmt.Println(testGrid(grid))
 
 	grid2 := makeGrid(input)
@@ -65,7 +53,6 @@ func testGrid(grid [][]int) int {
 
 	seen := make(map[int]struct{})
 	biggest := 0
-
 	for y := range grid {
 		for x := range grid[y] {
 			val := grid[y][x]
@@ -81,7 +68,6 @@ func testGrid(grid [][]int) int {
 			i := isInfinite(x, y, grid)
 			if !i {
 				area := getArea(val, grid)
-
 				if area > biggest {
 					biggest = area
 				}
@@ -89,7 +75,6 @@ func testGrid(grid [][]int) int {
 
 		}
 	}
-
 	return biggest
 }
 
