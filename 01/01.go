@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 var tests = [][]int{
-	[]int{+1, +1, +1},
-	[]int{+1, +1, -2},
-	[]int{-1, -2, -3},
+	{+1, +1, +1},
+	{+1, +1, -2},
+	{-1, -2, -3},
 }
 var testResults = []int{
 	3,

@@ -137,7 +137,7 @@ func parseInput(i string) (time.Time, string, string) {
 	d := i[1:strings.LastIndex(i, "]")]
 	date, _ := time.Parse("2006-01-02 15:04", d)
 
-	action := i[strings.LastIndex(i, "]")+1 : len(i)]
+	action := i[strings.LastIndex(i, "]")+1:]
 	action = strings.TrimSpace(action)
 
 	guard := ""

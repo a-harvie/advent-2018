@@ -41,7 +41,7 @@ func react(r []rune) ([]rune, bool) {
 			if s > len(r) {
 				s = len(r)
 			}
-			return append(r[0:i-1], r[s:len(r)]...), true
+			return append(r[0:i-1], r[s:]...), true
 		}
 	}
 
